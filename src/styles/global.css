@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+  @theme es la forma de definir tokens de diseño en Tailwind v4.
+  Todo lo que definas acá se convierte en clases de Tailwind automáticamente.
+  Ejemplo: --color-accent → bg-accent, text-accent, border-accent, etc.
+*/
+@theme {
+  /* Fuente principal — Inter es la fuente más usada en interfaces modernas */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Paleta de colores — modo claro */
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f9fafb;
+  --color-surface: #f3f4f6;
+  --color-border: #e5e7eb;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-accent: #2563eb;        /* azul — el único color de acento */
+  --color-accent-hover: #1d4ed8;
+
+  /* Espaciado máximo del contenido */
+  --container-content: 768px;
+  --container-wide: 1024px;
+}
+
+/*
+  Variables para dark mode.
+  @custom-variant declara la variante "dark" vinculada a la clase .dark en el <html>.
+  Luego las variables se aplican con un selector CSS estándar.
+  Cuando el <html> tiene class="dark", estos valores sobreescriben los de @theme.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root:where(.dark, .dark *) {
+  --color-bg: #0a0a0a;
+  --color-bg-subtle: #111111;
+  --color-surface: #1a1a1a;
+  --color-border: #2a2a2a;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+}
+
+/* Estilos base globales */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100dvh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Scrollbar sutil en dark mode */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
