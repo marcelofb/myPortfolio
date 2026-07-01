@@ -1,4 +1,11 @@
 @import "tailwindcss";
+/*
+  @plugin registra un plugin de Tailwind — en v4 va directo en el CSS,
+  ya no en un archivo tailwind.config.js.
+  @tailwindcss/typography agrega la clase "prose" que aplica estilos
+  tipográficos al HTML generado por MDX (headings, párrafos, listas, código...).
+*/
+@plugin "@tailwindcss/typography";
 
 /*
   @theme es la forma de definir tokens de diseño en Tailwind v4.

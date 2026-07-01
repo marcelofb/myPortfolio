@@ -1,0 +1,49 @@
+---
+/*
+  getStaticPaths — función especial de Astro para rutas dinámicas.
+
+  El archivo se llama [slug].astro porque la URL tiene una parte variable:
+  /blog/primer-post → slug = "primer-post"
+  /blog/otro-articulo → slug = "otro-articulo"
+
+  Como Astro genera HTML estático en build time (sin servidor), necesita
+  saber de antemano TODAS las URLs posibles. getStaticPaths le dice exactamente
+  qué páginas generar: una por cada post que no sea draft.
+
+  Cada objeto del array que retorna define:
+  - params: los valores de las partes dinámicas de la URL ([slug])
+  - props: los datos que va a recibir la página (el post completo)
+*/
+import { getCollection, render } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    !data.draft && data.lang === "es"
+  );
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+/*
+  render() — función de Astro 6 que procesa el MDX del post.
+  Devuelve <Content /> que es el componente con el HTML del post.
+  
+  (En Astro 5 era post.render() — en Astro 6 es render(post))
+*/
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  tags={post.data.tags}
+>
+  <Content />
+</BlogLayout>

@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { site } from "../data/site";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -10,14 +11,14 @@ const year = new Date().getFullYear();
   <div class="mx-auto max-w-[var(--container-wide)] px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--color-text-muted)]">
     
     <p>
-      © {year} Tu Nombre — {t.footer.built_with}
+      © {year} {site.name} — {t.footer.built_with}
       <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent)] transition-colors">Astro</a>
       {t.footer.and}
       <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent)] transition-colors">Tailwind</a>
     </p>
 
     <a
-      href="https://github.com/tu-usuario/my-portfolio"
+      href={site.github}
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center gap-1.5 hover:text-[var(--color-text)] transition-colors"

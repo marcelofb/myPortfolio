@@ -1,0 +1,67 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { experience } from "../data/experience";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<!--
+  bg-[var(--color-bg-subtle)] → fondo levemente diferente al blanco puro,
+  crea un ritmo visual al alternar secciones.
+-->
+<section id="experience" class="py-20 bg-[var(--color-bg-subtle)]">
+  <div class="mx-auto max-w-[var(--container-content)] px-6">
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-12">{t.experience.title}</h2>
+
+    <!-- Timeline container -->
+    <div class="relative">
+
+      <!-- Línea vertical del timeline (solo desktop) -->
+      <div class="absolute left-0 top-2 bottom-2 w-px bg-[var(--color-border)] hidden sm:block"></div>
+
+      <div class="space-y-10">
+        {experience.map((item) => (
+          <div class="sm:pl-8 relative">
+
+            <!-- Punto del timeline -->
+            <div class="hidden sm:block absolute left-0 top-[7px] w-2 h-2 rounded-full bg-[var(--color-accent)] -translate-x-[3.5px]"></div>
+
+            <!-- Encabezado: rol + empresa + período -->
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 mb-2">
+              <div>
+                <h3 class="font-semibold text-[var(--color-text)]">{item.role[lang]}</h3>
+                <p class="text-sm font-medium text-[var(--color-accent)]">
+                  {/*
+                    Si el item tiene URL, el nombre de la empresa es un link.
+                    Si no, es solo texto.
+                  */}
+                  {item.url
+                    ? <a href={item.url} target="_blank" rel="noopener noreferrer" class="hover:underline">{item.company}</a>
+                    : item.company
+                  }
+                </p>
+              </div>
+              <span class="text-xs text-[var(--color-text-muted)] whitespace-nowrap sm:pt-1">{item.period[lang]}</span>
+            </div>
+
+            <!-- Descripción -->
+            <p class="text-sm text-[var(--color-text-muted)] leading-relaxed mb-3">
+              {item.description[lang]}
+            </p>
+
+            <!-- Tags de tecnologías -->
+            <div class="flex flex-wrap gap-1.5">
+              {item.tech.map((tag) => (
+                <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,6 +4,7 @@
   interface define la forma del objeto — TypeScript verifica
   que quien use este layout pase los datos correctos.
 */
+import { ClientRouter } from "astro:transitions";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { getLangFromUrl } from "../i18n/utils";
@@ -53,6 +54,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+
+    <!--
+      ViewTransitions activa la View Transitions API del browser.
+      Convierte cada navegación entre páginas en una transición animada
+      (fade por defecto) sin recargar el DOM completo.
+      En browsers que no lo soportan, cae silenciosamente a navegación normal.
+    -->
+    <ClientRouter />
 
     <!-- Fuente Inter desde Google Fonts — display=swap evita que el texto sea invisible mientras carga -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

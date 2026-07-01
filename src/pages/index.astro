@@ -1,12 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Experience from "../components/Experience.astro";
+import Projects from "../components/Projects.astro";
+import Skills from "../components/Skills.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <BaseLayout
   title="Tu Nombre — Software Engineer"
   description="Software Engineer con varios años de experiencia construyendo productos web."
 >
-  <div class="mx-auto max-w-[var(--container-wide)] px-6 py-24 text-center">
-    <p class="text-[var(--color-text-muted)]">Secciones en construcción...</p>
-  </div>
+  <Hero />
+  <Experience />
+  <Projects />
+  <Skills />
+  <Contact />
 </BaseLayout>

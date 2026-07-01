@@ -1,0 +1,103 @@
+---
+/*
+  Layout específico para posts del blog.
+  Recibe los datos del post (title, description, pubDate, tags)
+  y los usa para el <head> SEO y para mostrar el encabezado del post.
+  El contenido MDX se inyecta en el <slot />.
+*/
+import BaseLayout from "./BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  tags: string[];
+}
+
+const { title, description, pubDate, updatedDate, tags } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+/*
+  toLocaleDateString convierte un objeto Date a texto legible.
+  "es-AR" → "11 de junio de 2026"
+  "en-US" → "June 11, 2026"
+*/
+const locale = lang === "es" ? "es-AR" : "en-US";
+const formattedDate = pubDate.toLocaleDateString(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const formattedUpdatedDate = updatedDate?.toLocaleDateString(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout title={`${title} — Blog`} description={description}>
+  <article class="mx-auto max-w-[var(--container-content)] px-6 py-16">
+
+    <!-- Encabezado del post -->
+    <header class="mb-10">
+
+      <!-- Tags -->
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <h1 class="text-3xl font-bold text-[var(--color-text)] mb-4 leading-tight">{title}</h1>
+      <p class="text-[var(--color-text-muted)] text-lg mb-4">{description}</p>
+
+      <!-- Fechas -->
+      <div class="text-sm text-[var(--color-text-muted)] flex flex-wrap gap-4">
+        <time datetime={pubDate.toISOString()}>
+          {t.blog.published} {formattedDate}
+        </time>
+        {formattedUpdatedDate && (
+          <time datetime={updatedDate?.toISOString()}>
+            · {t.blog.updated} {formattedUpdatedDate}
+          </time>
+        )}
+      </div>
+
+    </header>
+
+    <!-- Separador -->
+    <hr class="border-[var(--color-border)] mb-10" />
+
+    <!--
+      prose es una clase del plugin @tailwindcss/typography (lo agregamos abajo).
+      Aplica estilos tipográficos a contenido HTML genérico (el que genera MDX):
+      headings, párrafos, listas, código, blockquotes, etc.
+      Sin prose, el HTML del MDX aparece sin estilos.
+    -->
+    <div class="prose prose-neutral dark:prose-invert max-w-none">
+      <slot />
+    </div>
+
+    <!-- Link de vuelta al blog -->
+    <footer class="mt-16 pt-8 border-t border-[var(--color-border)]">
+      <a
+        href={lang === "es" ? "/blog" : "/en/blog"}
+        class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-1.5"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+                {t.blog.back}
+      </a>
+    </footer>
+
+  </article>
+</BaseLayout>

@@ -5,6 +5,7 @@ export const en = {
     projects: "Projects",
     skills: "Skills",
     contact: "Contact",
+    blog: "Blog",
   },
   hero: {
     greeting: "Hi, I'm",
@@ -26,6 +27,15 @@ export const en = {
   },
   skills: {
     title: "Skills",
+  },
+  blog: {
+    title: "Blog",
+    all_posts: "All posts",
+    empty: "No posts published yet. Check back soon.",
+    read_more: "Read more",
+    published: "Published on",
+    updated: "Updated on",
+    back: "Back to blog",
   },
   contact: {
     title: "Contact",

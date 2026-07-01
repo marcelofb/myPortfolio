@@ -5,6 +5,7 @@
   El resultado es HTML estático — no llega al browser como JS.
 */
 import { getLangFromUrl, useTranslations, getAlternateUrl } from "../i18n/utils";
+import { site } from "../data/site";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -16,7 +17,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
     
     <!-- Logo / nombre -->
     <a href={lang === "en" ? "/en/" : "/"} class="text-sm font-semibold tracking-tight text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
-      TN <!-- placeholder: iniciales. Lo reemplazás con tu nombre -->
+      {site.initials}
     </a>
 
     <!-- Links de sección — solo visibles en desktop -->
@@ -26,6 +27,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
       <li><a href="#projects" class="hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
       <li><a href="#skills" class="hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
       <li><a href="#contact" class="hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
+      <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
     </ul>
 
     <!-- Acciones: idioma + dark mode -->
@@ -68,11 +70,9 @@ const alternateUrl = getAlternateUrl(Astro.url);
 -->
 <script is:inline>
   function applyTheme() {
-    // Lee la preferencia guardada, o usa la preferencia del sistema operativo
     const stored = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDark = stored === "dark" || (!stored && prefersDark);
-    
     document.documentElement.classList.toggle("dark", isDark);
     updateIcons(isDark);
   }
@@ -84,13 +84,20 @@ const alternateUrl = getAlternateUrl(Astro.url);
     if (moon) moon.classList.toggle("hidden", isDark);
   }
 
-  // Aplica el tema inmediatamente al cargar
-  applyTheme();
+  function setupToggle() {
+    document.getElementById("theme-toggle")?.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      updateIcons(isDark);
+    });
+  }
 
-  // Listener del botón
-  document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    updateIcons(isDark);
+  // Aplica el tema al cargar y re-engancha el listener después de cada
+  // View Transition (astro:after-swap se dispara cuando Astro swapea el DOM).
+  applyTheme();
+  setupToggle();
+  document.addEventListener("astro:after-swap", () => {
+    applyTheme();
+    setupToggle();
   });
 </script>

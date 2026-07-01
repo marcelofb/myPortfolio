@@ -1,0 +1,29 @@
+---
+title: "Primer post de ejemplo"
+description: "Este es un post de ejemplo para ver cómo funciona el blog. Podés borrarlo o reemplazarlo con tu contenido real."
+pubDate: 2026-06-11
+tags: ["ejemplo", "astro", "blog"]
+lang: "es"
+draft: false
+---
+
+Este es el contenido del post escrito en **MDX** — una combinación de Markdown y JSX.
+
+## ¿Qué podés escribir acá?
+
+Markdown normal: párrafos, **negrita**, *cursiva*, `código inline`, listas, etc.
+
+```javascript
+// También bloques de código con syntax highlighting
+const saludo = "Hola mundo";
+console.log(saludo);
+```
+
+## ¿Cómo publicar un post real?
+
+1. Creá un archivo `.mdx` en `src/content/blog/`
+2. Completá el frontmatter (el bloque `---` del inicio) con título, descripción, fecha y tags
+3. Escribí el contenido abajo del frontmatter
+4. Hacé `pnpm build` — aparece automáticamente en `/blog`
+
+Cuando no estés listo para publicar, usá `draft: true` en el frontmatter y no aparecerá en producción.

@@ -1,0 +1,25 @@
+---
+/*
+  Esta página es idéntica a index.astro pero vive en /en/.
+  Como Astro.url.pathname empieza con /en/, getLangFromUrl()
+  devuelve "en" automáticamente en todos los componentes hijos.
+  No hace falta pasarle el idioma explícitamente a nadie.
+*/
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+import Experience from "../../components/Experience.astro";
+import Projects from "../../components/Projects.astro";
+import Skills from "../../components/Skills.astro";
+import Contact from "../../components/Contact.astro";
+---
+
+<BaseLayout
+  title="Your Name — Software Engineer"
+  description="Software Engineer with several years of experience building web products."
+>
+  <Hero />
+  <Experience />
+  <Projects />
+  <Skills />
+  <Contact />
+</BaseLayout>

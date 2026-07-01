@@ -1,0 +1,79 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { projects } from "../data/projects";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="projects" class="py-20">
+  <div class="mx-auto max-w-[var(--container-wide)] px-6">
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-12">{t.projects.title}</h2>
+
+    <!--
+      grid-cols-1 → 1 columna en mobile
+      sm:grid-cols-2 → 2 columnas en tablet
+      lg:grid-cols-3 → 3 columnas en desktop
+      gap-6 → espacio entre cards
+    -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <!--
+          article → elemento HTML semántico para contenido independiente.
+          group → clase de Tailwind que permite usar group-hover en hijos.
+          hover:border-[var(--color-accent)] → el borde se vuelve azul al hover.
+          flex flex-col → columna para que los links queden siempre al fondo.
+        -->
+        <article class="group rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] p-6 flex flex-col gap-4 hover:border-[var(--color-accent)] transition-colors">
+
+          <div class="flex-1">
+            <h3 class="font-semibold text-[var(--color-text)] mb-2">{project.title}</h3>
+            <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">{project.description[lang]}</p>
+          </div>
+
+          <!-- Tech stack -->
+          <div class="flex flex-wrap gap-1.5">
+            {project.tech.map((tag) => (
+              <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <!-- Links: GitHub y demo -->
+          <div class="flex items-center gap-4 pt-2 border-t border-[var(--color-border)]">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+                </svg>
+                {t.projects.view_code}
+              </a>
+            )}
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                {t.projects.view_demo}
+              </a>
+            )}
+          </div>
+
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
