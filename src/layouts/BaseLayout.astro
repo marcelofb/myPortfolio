@@ -7,7 +7,8 @@
 import { ClientRouter } from "astro:transitions";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl, getAlternateUrl } from "../i18n/utils";
+import { site } from "../data/site";
 import "../styles/global.css";
 
 interface Props {
@@ -24,6 +25,16 @@ const {
 
 const lang = getLangFromUrl(Astro.url);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+/*
+  hreflang: le dice a Google que existe una versión alternativa en otro idioma.
+  - hreflang="es" → esta URL es la versión en español
+  - hreflang="en" → esta URL es la versión en inglés
+  - hreflang="x-default" → versión por defecto si ningún idioma hace match
+  getAlternateUrl() calcula la URL del otro idioma a partir de la URL actual.
+*/
+const alternateUrl = new URL(getAlternateUrl(Astro.url), Astro.site);
+const hreflangSelf = lang === "es" ? "es" : "en";
+const hreflangOther = lang === "es" ? "en" : "es";
 ---
 
 <!doctype html>
@@ -37,6 +48,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    <!--
+      hreflang: informa a Google sobre las versiones en otros idiomas.
+      x-default = la URL que Google muestra a usuarios sin preferencia de idioma.
+    -->
+    <link rel="alternate" hreflang={hreflangSelf} href={canonicalURL} />
+    <link rel="alternate" hreflang={hreflangOther} href={alternateUrl} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site)} />
 
     <!-- Open Graph — controla cómo se ve el link al compartir en LinkedIn, Twitter, etc. -->
     <meta property="og:type" content="website" />

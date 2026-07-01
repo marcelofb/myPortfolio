@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { useTranslations } from "../../../i18n/utils";
 
+import { site } from "../../../data/site";
+
 const t = useTranslations("en");
 
 const posts = (await getCollection("blog", ({ data }) =>
@@ -10,7 +12,7 @@ const posts = (await getCollection("blog", ({ data }) =>
 )).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="Blog — Your Name" description="Articles about software development, technology and learnings.">
+<BaseLayout title={`Blog — ${site.name}`} description="Articles about software development, technology and learnings.">
   <div class="mx-auto max-w-[var(--container-content)] px-6 py-16">
 
     <h1 class="text-3xl font-bold text-[var(--color-text)] mb-2">{t.blog.title}</h1>
