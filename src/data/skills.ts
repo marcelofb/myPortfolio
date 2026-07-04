@@ -3,23 +3,22 @@ export interface SkillGroup {
   items: string[];
 }
 
-// Reemplazá con tus skills reales
 export const skills: SkillGroup[] = [
   {
     category: { es: "Lenguajes", en: "Languages" },
-    items: ["JavaScript", "TypeScript", "Python", "SQL"],
+    items: ["JavaScript", "TypeScript", "SQL", "Java"],
   },
   {
     category: { es: "Frontend", en: "Frontend" },
-    items: ["React", "Vue.js", "Astro", "HTML", "CSS", "Tailwind CSS"],
+    items: ["React", "Next.js", "React Native", "Angular", "Astro", "Vite", "HTML", "CSS", "Tailwind CSS"],
   },
   {
     category: { es: "Backend", en: "Backend" },
-    items: ["Node.js", "Express", "NestJS", "REST APIs", "GraphQL"],
+    items: ["Node.js", "Express", "REST APIs", "GraphQL"],
   },
   {
     category: { es: "Bases de datos", en: "Databases" },
-    items: ["PostgreSQL", "MongoDB", "MySQL", "Redis"],
+    items: ["PostgreSQL", "MongoDB", "MySQL"],
   },
   {
     category: { es: "Herramientas & Cloud", en: "Tools & Cloud" },
