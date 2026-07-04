@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://my-portfolio.vercel.app', // se actualiza cuando tengas la URL real
+  site: 'https://marceloburriel.vercel.app',
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
