@@ -49,4 +49,8 @@ export const en = {
     and: "and",
     source: "View source",
   },
+  under_construction: {
+    message: "This site is currently under construction — some sections may be incomplete.",
+    dismiss: "Got it",
+  },
 } as const;

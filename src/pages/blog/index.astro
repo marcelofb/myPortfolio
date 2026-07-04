@@ -14,8 +14,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { useTranslations } from "../../i18n/utils";
 import { site } from "../../data/site";
 
-import { site } from "../../data/site";
-
 const t = useTranslations("es");
 
 const posts = (await getCollection("blog", ({ data }) =>

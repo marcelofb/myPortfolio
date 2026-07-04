@@ -49,6 +49,10 @@ export const es = {
     and: "y",
     source: "Ver código fuente",
   },
+  under_construction: {
+    message: "Este sitio está en construcción — algunas secciones pueden estar incompletas.",
+    dismiss: "Entendido",
+  },
 } as const;
 
 export type TranslationKey = typeof es;

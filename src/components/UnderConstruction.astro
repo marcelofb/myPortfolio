@@ -1,0 +1,39 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div
+  class="construction-banner"
+  role="status"
+  aria-live="polite"
+>
+  <span class="construction-icon" aria-hidden="true">🚧</span>
+  <p class="construction-message">{t.under_construction.message}</p>
+</div>
+
+<style>
+  .construction-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    background-color: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-subtle));
+    border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  .construction-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .construction-message {
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+</style>

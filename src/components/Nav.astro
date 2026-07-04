@@ -22,11 +22,11 @@ const alternateUrl = getAlternateUrl(Astro.url);
 
     <!-- Links de sección — solo visibles en desktop -->
     <ul class="hidden md:flex items-center gap-6 text-sm text-[var(--color-text-muted)]">
-      <li><a href="#about" class="hover:text-[var(--color-text)] transition-colors">{t.nav.about}</a></li>
-      <li><a href="#experience" class="hover:text-[var(--color-text)] transition-colors">{t.nav.experience}</a></li>
-      <li><a href="#projects" class="hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
-      <li><a href="#skills" class="hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
-      <li><a href="#contact" class="hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
+      <li><a href={lang === "en" ? "/en/#about" : "/#about"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.about}</a></li>
+      <li><a href={lang === "en" ? "/en/#experience" : "/#experience"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.experience}</a></li>
+      <li><a href={lang === "en" ? "/en/#projects" : "/#projects"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
+      <li><a href={lang === "en" ? "/en/#skills" : "/#skills"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
+      <li><a href={lang === "en" ? "/en/#contact" : "/#contact"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
       <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
     </ul>
 
