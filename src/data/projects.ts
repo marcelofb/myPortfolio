@@ -6,34 +6,23 @@ export interface Project {
   demo?: string;
 }
 
-// Reemplazá con tus proyectos reales
 export const projects: Project[] = [
   {
-    title: "Proyecto Alpha",
+    title: "Event Scheduler",
     description: {
-      es: "Aplicación web para gestión de tareas en equipo con actualizaciones en tiempo real, notificaciones y permisos por rol.",
-      en: "Web application for team task management with real-time updates, notifications and role-based permissions.",
+      es: "PWA mobile-first para agendar y gestionar eventos, con recordatorios diarios y resúmenes semanales automáticos vía bot de Telegram.",
+      en: "Mobile-first PWA to schedule and manage events, with automated daily reminders and weekly summaries via a Telegram bot.",
     },
-    tech: ["TypeScript", "React", "Socket.io", "Node.js", "PostgreSQL"],
-    github: "https://github.com/tu-usuario/proyecto-alpha",
-    demo: "https://proyecto-alpha.vercel.app",
+    tech: ["React", "Vite", "Node.js", "Express", "PostgreSQL", "Telegram Bot API"],
+    github: "https://github.com/marcelofb/eventScheduler",
   },
   {
-    title: "CLI Tool Beta",
+    title: "Telegram Message Forwarder",
     description: {
-      es: "Herramienta de línea de comandos para automatizar flujos de trabajo de desarrollo. Más de 500 descargas en npm.",
-      en: "Command-line tool to automate development workflows. Over 500 npm downloads.",
+      es: "Bot que monitorea un grupo de Telegram y reenvía en tiempo real los mensajes de un usuario específico a otro chat, incluyendo el contexto de los hilos.",
+      en: "Bot that monitors a Telegram group and forwards in real time the messages of a specific user to another chat, including thread context.",
     },
-    tech: ["Node.js", "TypeScript", "Commander.js"],
-    github: "https://github.com/tu-usuario/cli-tool-beta",
-  },
-  {
-    title: "API REST Gamma",
-    description: {
-      es: "API REST con autenticación JWT, rate limiting, documentación automática con Swagger y tests de integración.",
-      en: "REST API with JWT authentication, rate limiting, automatic Swagger docs and integration tests.",
-    },
-    tech: ["Node.js", "Express", "TypeScript", "Jest", "MongoDB"],
-    github: "https://github.com/tu-usuario/api-gamma",
+    tech: ["Node.js", "Telegram MTProto", "GramJS", "Axios"],
+    github: "https://github.com/marcelofb/botFilterMessagesGroupTelegram",
   },
 ];
