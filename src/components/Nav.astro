@@ -15,10 +15,34 @@ const alternateUrl = getAlternateUrl(Astro.url);
 <header class="sticky top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm">
   <nav class="mx-auto flex max-w-[var(--container-wide)] items-center justify-between px-6 py-4">
     
-    <!-- Logo / nombre -->
-    <a href={lang === "en" ? "/en/" : "/"} class="text-sm font-semibold tracking-tight text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
-      {site.initials}
-    </a>
+    <!-- Izquierda: hamburguesa (mobile) + logo -->
+    <div class="flex items-center gap-3">
+      <!-- Hamburguesa — solo en mobile -->
+      <button
+        id="menu-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden w-8 h-8 flex items-center justify-center rounded text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors"
+      >
+        <!-- Ícono hamburguesa -->
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <!-- Ícono X (cerrar) -->
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <!-- Logo / nombre -->
+      <a href={lang === "en" ? "/en/" : "/"} class="text-sm font-semibold tracking-tight text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
+        {site.initials}
+      </a>
+    </div>
 
     <!-- Links de sección — solo visibles en desktop -->
     <ul class="hidden md:flex items-center gap-6 text-sm text-[var(--color-text-muted)]">
@@ -30,7 +54,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
       <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
     </ul>
 
-    <!-- Acciones: idioma + dark mode + hamburguesa -->
+    <!-- Acciones: idioma + dark mode -->
     <div class="flex items-center gap-3">
       
       <!-- Toggle de idioma -->
@@ -55,26 +79,6 @@ const alternateUrl = getAlternateUrl(Astro.url);
         <!-- Ícono luna (visible en light mode) -->
         <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-      <!-- Hamburguesa — solo en mobile -->
-      <button
-        id="menu-toggle"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        class="md:hidden w-8 h-8 flex items-center justify-center rounded text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors"
-      >
-        <!-- Ícono hamburguesa -->
-        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-        <!-- Ícono X (cerrar) -->
-        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
     </div>
