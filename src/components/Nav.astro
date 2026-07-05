@@ -30,7 +30,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
       <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
     </ul>
 
-    <!-- Acciones: idioma + dark mode -->
+    <!-- Acciones: idioma + dark mode + hamburguesa -->
     <div class="flex items-center gap-3">
       
       <!-- Toggle de idioma -->
@@ -57,8 +57,43 @@ const alternateUrl = getAlternateUrl(Astro.url);
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
+      <!-- Hamburguesa — solo en mobile -->
+      <button
+        id="menu-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden w-8 h-8 flex items-center justify-center rounded text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors"
+      >
+        <!-- Ícono hamburguesa -->
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <!-- Ícono X (cerrar) -->
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Menú mobile -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]"
+  >
+    <ul class="flex flex-col px-6 py-4 gap-4 text-sm text-[var(--color-text-muted)]">
+      <li><a href={lang === "en" ? "/en/#about" : "/#about"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.about}</a></li>
+      <li><a href={lang === "en" ? "/en/#experience" : "/#experience"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.experience}</a></li>
+      <li><a href={lang === "en" ? "/en/#projects" : "/#projects"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
+      <li><a href={lang === "en" ? "/en/#skills" : "/#skills"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
+      <li><a href={lang === "en" ? "/en/#contact" : "/#contact"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
+      <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
+    </ul>
+  </div>
 </header>
 
 <!--
@@ -92,12 +127,46 @@ const alternateUrl = getAlternateUrl(Astro.url);
     });
   }
 
+  function setupMenu() {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    const iconMenu = document.getElementById("icon-menu");
+    const iconClose = document.getElementById("icon-close");
+    if (!toggle || !menu) return;
+
+    function closeMenu() {
+      menu.classList.add("hidden");
+      iconMenu.classList.remove("hidden");
+      iconClose.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = !menu.classList.contains("hidden");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        menu.classList.remove("hidden");
+        iconMenu.classList.add("hidden");
+        iconClose.classList.remove("hidden");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    // Cerrar el menú al hacer click en cualquier link
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+  }
+
   // Aplica el tema al cargar y re-engancha el listener después de cada
   // View Transition (astro:after-swap se dispara cuando Astro swapea el DOM).
   applyTheme();
   setupToggle();
+  setupMenu();
   document.addEventListener("astro:after-swap", () => {
     applyTheme();
     setupToggle();
+    setupMenu();
   });
 </script>
