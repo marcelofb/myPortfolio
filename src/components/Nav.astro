@@ -10,6 +10,7 @@ import { site } from "../data/site";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const alternateUrl = getAlternateUrl(Astro.url);
+const showBlogLink = false;
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm">
@@ -51,7 +52,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
       <li><a href={lang === "en" ? "/en/#projects" : "/#projects"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
       <li><a href={lang === "en" ? "/en/#skills" : "/#skills"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
       <li><a href={lang === "en" ? "/en/#contact" : "/#contact"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
-      <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
+      {showBlogLink && <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>}
     </ul>
 
     <!-- Acciones: idioma + dark mode -->
@@ -95,7 +96,7 @@ const alternateUrl = getAlternateUrl(Astro.url);
       <li><a href={lang === "en" ? "/en/#projects" : "/#projects"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.projects}</a></li>
       <li><a href={lang === "en" ? "/en/#skills" : "/#skills"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.skills}</a></li>
       <li><a href={lang === "en" ? "/en/#contact" : "/#contact"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.contact}</a></li>
-      <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>
+      {showBlogLink && <li><a href={lang === "en" ? "/en/blog" : "/blog"} class="block hover:text-[var(--color-text)] transition-colors">{t.nav.blog}</a></li>}
     </ul>
   </div>
 </header>

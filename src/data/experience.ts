@@ -6,6 +6,7 @@
 export interface ExperienceItem {
   company: string;
   url?: string;                          // ? = campo opcional
+  logo?: string;
   role: { es: string; en: string };      // bilingüe
   period: { es: string; en: string };    // bilingüe
   description: { es: string; en: string };
@@ -16,6 +17,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Santander Tecnología Argentina",
     url: "https://www.santander.com.ar",
+    logo: "/santandertec_logo.jfif",
     role: { es: "Senior Software Engineer", en: "Senior Software Engineer" },
     period: { es: "Nov 2021 — Presente", en: "Nov 2021 — Present" },
     description: {
@@ -27,6 +29,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Flux IT",
     url: "https://www.fluxitsoft.com",
+    logo: "/fluxit_logo.jfif",
     role: { es: "Software Developer", en: "Software Developer" },
     period: { es: "Nov 2014 — Oct 2021", en: "Nov 2014 — Oct 2021" },
     description: {
@@ -38,6 +41,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "MILLER BUILDING INTERNATIONAL",
     url: "https://www.millerbi.net",
+    logo: "/miller_building_international_logo.jfif",
     role: { es: "Software Developer", en: "Software Developer" },
     period: { es: "May 2012 — Nov 2014", en: "May 2012 — Nov 2014" },
     description: {
